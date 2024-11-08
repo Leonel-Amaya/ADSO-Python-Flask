@@ -1,6 +1,14 @@
 from flask import Flask, render_template
+from src.models import Base, engine
+from src.models.categorias import Categorias
+from src.models.productos import Productos
+from src.models.clientes import Clientes
+from src.models.facturas import Facturas
+from src.models.detalles_facturas import Detalles_Facturas
 
 app = Flask(__name__)
+
+Base.metadata.create_all(engine)
 
 if __name__ == '__main__':
     app.run(debug=True)
