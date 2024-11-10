@@ -9,8 +9,13 @@ class Clientes(Base):
     email = Column(String(100), nullable=False)
     telefono = Column(String(50), nullable=False)
 
-def __init__(self, nombre, direccion, email, telefono):
-    self.nombre = nombre
-    self.direccion = direccion
-    self.email = email
-    self.telefono = telefono
+    def __init__(self, nombre, direccion, email, telefono):
+        self.nombre = nombre
+        self.direccion = direccion
+        self.email = email
+        self.telefono = telefono
+
+    def agregar_cliente(cliente):
+        cliente = session.add(cliente)
+        session.commit()
+        return cliente

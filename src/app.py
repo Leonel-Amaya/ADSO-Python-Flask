@@ -30,13 +30,26 @@ def crear_producto():
 
         producto = Productos(descripcion, valor_unitario, unidad_medida, cantidad_stock, categoria)
         Productos.agregar_producto(producto)
-        
+
         return redirect(url_for('index'))
     
     return render_template('producto.html', title_page = 'SFI - Productos')
 
-@app.route('/registrar-cliente')
+@app.route('/crear_cliente', methods = ['POST', 'GET'])
 def crear_cliente():
+
+    if request.method == 'POST':
+
+        nombre = request.form.get('nombre')
+        direccion = request.form.get('direccion')
+        email = request.form.get('email')
+        telefono = request.form.get('telefono')
+
+        cliente = Clientes(nombre, direccion, email, telefono)
+        Clientes.agregar_cliente(cliente)
+
+        return redirect(url_for('index'))
+
     return render_template('cliente.html', title_page = 'SFI - Cliente')
 
 @app.route('/registrar-proveedor')
