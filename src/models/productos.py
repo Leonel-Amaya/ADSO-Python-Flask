@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from src.models import session, Base
+from src.models.categorias import Categorias
 
 class Productos(Base):
     __tablename__ = 'productos'
@@ -16,3 +17,12 @@ def __init__(self, descripcion, valor_unitario, unidad_medida, cantidad_stock, c
     self.unidad_medida = unidad_medida
     self.cantidad_stock = cantidad_stock
     self.categoria = categoria
+
+def obtener_producto():
+    productos = session.query(Productos).all()
+    return productos
+
+def agregar_producto(producto):
+    producto = session.add(producto)
+    session.commit
+    return producto
