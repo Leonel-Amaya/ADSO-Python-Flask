@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from src.models import Base, engine
 from src.models.categorias import Categorias
 from src.models.productos import Productos
@@ -17,8 +17,22 @@ if __name__ == '__main__':
 def index():
     return render_template('principal.html', title_page = 'SFI - Home')
 
-@app.route('/registrar-producto')
+@app.route('/crear_producto', methods=['POST','GET'])
 def crear_producto():
+
+    if request.method == 'POST':
+
+        descripcion = request.form.get('descripcion')
+        valor_unitario = request.form.get('valor_unitario')    
+        unidad_medida = request.form.get('unidad_medida')    
+        cantidad_stock = request.form.get('cantidad_stock')
+        categoria = request.form.get('categoria')
+
+        producto = Productos(descripcion, valor_unitario, unidad_medida, cantidad_stock, categoria)
+        Productos.agregar_producto(producto)
+        
+        return redirect(url_for('index'))
+    
     return render_template('producto.html', title_page = 'SFI - Productos')
 
 @app.route('/registrar-cliente')
