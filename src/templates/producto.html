@@ -15,8 +15,8 @@
                 <label for="" class="form-label">Proveedor del producto</label>
                 <select name="" id="" class="form-select">
                     <option value="">Elige uno</option>
-                    <option value="">Manzanas</option>
-                    <option value="">Peras</option>
+                    <option value="">Proveedor 1</option>
+                    <option value="">Proveedor 2</option>
                 </select>
             </div>
         </div>
@@ -30,7 +30,30 @@
                 <h2>Imagen del producto</h2>
             </div>
         </div>
-
+        <div class="row mt-5">
+            <div class="mb-3 col">
+                <label for="valor_unitario" class="form-label">Valor unitario</label>
+                <input type="number" id="valor_unitario" class="form-control" placeholder="Valor">
+            </div>
+            <div class="mb-3 col">
+                <label for="unidad_medida" class="form-label">Unidad de medida</label>
+                <input type="text" id="unidad_medida" class="form-control" placeholder="Unidad">
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="mb-3 col">
+                <label for="cantidad_stock" class="form-label">Cantidad en inventario</label>
+                <input type="number" id="cantidad_stock" class="form-control" placeholder="Cantidad">
+            </div>
+            <div class="mb-3 col">
+                <label for="cateogria" class="form-label">Categoría del producto</label>
+                <select name="cateogria" id="cateogria" class="form-select">
+                    <option value="">Categoría</option>
+                    <option value="">Frutas</option>
+                    <option value="">Verduras</option>
+                </select>
+            </div>
+        </div>
     </section>
 </div>
 {% endblock %}
