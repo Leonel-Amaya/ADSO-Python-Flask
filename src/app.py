@@ -5,6 +5,7 @@ from src.models.productos import Productos
 from src.models.clientes import Clientes
 from src.models.facturas import Facturas
 from src.models.detalles_facturas import Detalles_Facturas
+from src.models.proveedores import Proveedores
 
 app = Flask(__name__)
 
@@ -52,8 +53,20 @@ def crear_cliente():
 
     return render_template('cliente.html', title_page = 'SFI - Cliente')
 
-@app.route('/registrar-proveedor')
+@app.route('/crear_proveedor', methods = ['POST', 'GET'])
 def crear_proveedor():
+
+    if request.method == 'POST':
+
+        nombre = request.form.get('nombre')
+        nit = request.form.get('nit')
+        direccion = request.form.get('direccion')
+
+        proveedor = Proveedores(nombre, nit, direccion)
+        Proveedores.agregar_proveedor(proveedor)
+
+        return redirect(url_for('index'))
+    
     return render_template('proveedor.html', title_page = 'SFI - Proveedor')
 
 @app.route('/registrar-factura')
