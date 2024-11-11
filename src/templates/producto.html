@@ -53,8 +53,9 @@
                     <label for="categoria" class="form-label">Categoría del producto</label>
                     <select name="categoria" id="categoria" class="form-select">
                         <option value="">Categoría</option>
-                        <option value="1">Frutas</option>
-                        <option value="2">Verduras</option>
+                        {% for categoria in categorias %}
+                            <option value={{ categoria.id }}>{{ categoria.categoria }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

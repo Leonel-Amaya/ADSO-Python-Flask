@@ -33,8 +33,10 @@ def crear_producto():
         Productos.agregar_producto(producto)
 
         return redirect(url_for('index'))
-    
-    return render_template('producto.html', title_page = 'SFI - Productos')
+
+    categorias = Categorias.obtener_categorias()
+
+    return render_template('producto.html', title_page = 'SFI - Productos', categorias = categorias)
 
 @app.route('/crear_cliente', methods = ['POST', 'GET'])
 def crear_cliente():
