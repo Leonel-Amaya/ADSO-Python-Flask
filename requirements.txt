@@ -1,6 +1,8 @@
 blinker==1.8.2
+case_convert==1.1.0
 click==8.1.7
 Flask==3.0.3
+flask-controller==0.0.2
 Flask-SQLAlchemy==3.1.1
 greenlet==3.1.1
 itsdangerous==2.2.0
