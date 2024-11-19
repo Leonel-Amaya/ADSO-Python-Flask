@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String
 from src.models import session, Base
 from sqlalchemy_serializer import SerializerMixin
 
-class Clientes(Base):
+class Clientes(Base, SerializerMixin):
     __tablename__ = 'clientes'
     id = Column(Integer, primary_key=True)
     nombre =Column(String(50), nullable=False)
