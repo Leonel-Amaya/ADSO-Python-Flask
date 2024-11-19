@@ -1,30 +1,33 @@
 {% extends 'layout.html' %}
 {% block contenido %}
+
 <div class="main p-3">
     <div class="text-center">
         <h1>FACTURACIÓN</h1>
     </div>
-    <section>
-        <div class="row mb-5">
-            <div class="col" style="max-width: 590px;">
-                <label for="" class="form-label">Cliente</label>
-                <input type="text" placeholder="DNI Cliente" class="form-control">
+    <form action="crear_factura" method="post">
+        <section>
+            <div class="row mb-5">
+                <div class="col" style="max-width: 590px;">
+                    <label for="" class="form-label">Cliente</label>
+                    <input type="text" placeholder="DNI Cliente" class="form-control" name="id_cliente" id="id_cliente">
+                </div>
+                <div class="col ms-5 mt-3"
+                    style="background-color: brown; max-width: 300px; border-radius: 8px; display: flex; align-items: center;">
+                    <h2>Total</h2>
+                    <h3>$$$$</h3>
+                </div>
             </div>
-            <div class="col ms-5 mt-3"
-                style="background-color: brown; max-width: 300px; border-radius: 8px; display: flex; align-items: center;">
-                <h2>Total</h2>
-                <h3>$$$$</h3>
+            <div class="row mt-3" style="height: 400px;">
+                <div class="col">
+                    <label for="" class="form-label">Productos</label>
+                    <textarea name="" id="" class="form-control"></textarea>
+                </div>
+                <div class="col" style="margin-top: 100px; margin-left: 100px;">
+                    <button class="btn btn-primary">Generar</button>
+                </div>
             </div>
-        </div>
-        <div class="row mt-3" style="height: 400px;">
-            <div class="col">
-                <label for="" class="form-label">Productos</label>
-                <textarea name="" id="" class="form-control"></textarea>
-            </div>
-            <div class="col" style="margin-top: 100px; margin-left: 100px;">
-                <button class="btn btn-primary">Generar</button>
-            </div>
-        </div>
-    </section>
+        </section>
+    </form>
 </div>
 {% endblock %}
