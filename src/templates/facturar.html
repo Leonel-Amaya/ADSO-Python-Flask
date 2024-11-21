@@ -9,8 +9,8 @@
         <section>
             <div class="row mb-5">
                 <div class="col" style="max-width: 590px;">
-                    <label for="id_cliente" class="form-label">Cliente</label>
-                    <input type="text" placeholder="DNI Cliente" class="form-control" name="id_cliente" id="id_cliente">
+                    <label for="dni_cliente" class="form-label">Cliente</label>
+                    <input type="text" placeholder="DNI Cliente" class="form-control" name="dni_cliente" id="dni_cliente">
                 </div>
                 <div class="col ms-5 mt-3"
                     style="background-color: brown; max-width: 300px; border-radius: 8px; display: flex; align-items: center;">
@@ -49,8 +49,27 @@
                 </div>
             </div>
 
-            <input type="hidden" id="id_usuario" name="id_cliente" value="1">
+            <input type="hidden" id="id_usuario" name="id_usuario" value="1">
         </section>
     </form>
 </div>
+<script>
+    $("#dni_cliente").change(function() {
+
+        value = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: "/consultar_cliente_dni/" + value,
+            contentType: "application/json",
+            dataType: "json",
+            success: function(result) {
+                $('#nombre').val(result.nombre);
+                $('#direccion').val(result.direccion);
+                $('#telefono').val(result.telefono);
+                $('#email').val(result.email);
+                $('#id_cliente').val(result.id);
+            }
+        });
+    });
+</script>
 {% endblock %}

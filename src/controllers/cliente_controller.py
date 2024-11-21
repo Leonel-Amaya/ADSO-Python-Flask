@@ -20,3 +20,8 @@ class ClienteController(FlaskController):
             return redirect(url_for('index'))
 
         return render_template('cliente.html', title_page = 'SFI - Cliente')
+    
+    @app.route('/consultar_cliente_dni/<dni>')
+    def consultar_cliente_dni(dni):
+        cliente = Clientes.obtener_cliente_por_dni(dni)
+        return cliente
