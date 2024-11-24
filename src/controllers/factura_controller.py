@@ -18,3 +18,9 @@ class FacturaController(FlaskController):
             return redirect(url_for('index'))
 
         return render_template('facturar.html', title_page = 'SFI - Factura')
+    
+    @app.route('/ver_facturas')
+    def ver_facturas():
+        facturas = Facturas.obtener_facturas()
+        
+        return render_template('tabla_facturas.html', title_page = 'Ver facturas', facturas = facturas)

@@ -19,3 +19,7 @@ class Facturas(Base):
         factura = session.add(factura)
         session.commit()
         return factura
+    
+    def obtener_facturas():
+        facturas = session.query(Facturas).all()
+        return facturas
