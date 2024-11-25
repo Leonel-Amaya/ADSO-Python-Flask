@@ -2,6 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
 from src.models import session, Base
+from src.models.clientes import Clientes
 
 class Facturas(Base):
     __tablename__ = 'facturas'
@@ -19,3 +20,7 @@ class Facturas(Base):
         factura = session.add(factura)
         session.commit()
         return factura
+    
+    def obtener_facturas():
+        facturas = session.query(Facturas, Clientes).join(Clientes, Facturas.cliente == Clientes.id).all()
+        return facturas

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for factura in facturas %}
+        <tr>
+          <th scope="row">{{ factura.Facturas.id }}</th>
+          <td>{{ factura.Facturas.fecha }}</td>
+          <td>{{ factura.Clientes.nombre }}</td>
+          <td>{{ factura.Facturas.estado }}</td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock %} 
