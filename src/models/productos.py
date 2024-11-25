@@ -19,8 +19,8 @@ class Productos(Base):
         self.cantidad_stock = cantidad_stock
         self.categoria = categoria
 
-    def obtener_producto():
-        productos = session.query(Productos).all()
+    def obtener_productos():
+        productos = session.query(Productos, Categorias).join(Categorias, Productos.categoria == Categorias.id).all()
         return productos
 
     def agregar_producto(producto):
