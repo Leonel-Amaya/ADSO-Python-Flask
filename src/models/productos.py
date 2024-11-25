@@ -27,3 +27,9 @@ class Productos(Base):
         producto = session.add(producto)
         session.commit()
         return producto
+    
+    def eliminar_producto(id):
+        producto = session.query(Productos).get(id)
+        session.delete(producto)
+        session.commit()
+        return producto

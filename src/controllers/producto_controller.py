@@ -29,3 +29,10 @@ class ProductoController(FlaskController):
     def ver_productos():
         productos = Productos.obtener_productos()
         return render_template('tabla_productos.html', title_page = 'SFI - Productos', productos = productos)
+    
+    @app.route('/eliminar_producto/<id>')
+    def eliminar_producto(id):
+        Productos.eliminar_producto(id)
+        productos = Productos.obtener_productos()
+        return render_template('tabla_productos.html', title_page = 'SFI - Productos', productos = productos)
+

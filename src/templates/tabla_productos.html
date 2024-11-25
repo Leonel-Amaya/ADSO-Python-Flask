@@ -9,6 +9,7 @@
       <th scope="col">Unidad Medida</th>
       <th scope="col">Cantidad en Stock</th>
       <th scope="col">Categoria</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,10 @@
           <td>{{producto.Productos.unidad_medida}}</td>
           <td>{{producto.Productos.cantidad_stock}}</td>
           <td>{{producto.Categorias.categoria}}</td>
+          <td> 
+            <a class="btn btn-danger" href="/eliminar_producto/{{producto.Productos.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/editar_producto/{{producto.Productos.id}}">Editar</a>
+          </td>
         </tr>
       {% endfor %}
   </tbody>
