@@ -35,4 +35,24 @@ class ProductoController(FlaskController):
         Productos.eliminar_producto(id)
         productos = Productos.obtener_productos()
         return render_template('tabla_productos.html', title_page = 'SFI - Productos', productos = productos)
+    
+    
+    @app.route('/editar_producto/<id>', methods=['POST', 'GET'])
+    def editar_producto(id):
+        
+        producto = Productos.obtener_un_producto(id)
+
+        if request.method == 'POST':
+
+            producto_solo = Productos.obtener_producto_solo(id)
+
+            producto_solo.descripcion = request.form.get('descripcion')
+            producto_solo.valor_unitario = request.form.get('valor_unitario')
+            producto_solo.cantidad_stock = request.form.get('cantidad_stock')
+            
+            Productos.editar_producto(producto_solo)
+
+            return redirect(url_for('ver_productos'))
+        
+        return render_template('editar_producto.html', title_page = 'SFI - Productos', producto = producto)
 

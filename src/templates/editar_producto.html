@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block contenido %}
+<div class="main p-3">
+    <form action="/editar_producto/{{producto.Productos.id}}" method="post">
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="descripcion" class="form-label">Descripción del producto</label>
+                <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Producto" value="{{producto.Productos.descripcion}}">
+            </div>
+            <div class="mb-3 col">
+                <label for="valor_unitario" class="form-label">Valor unitario</label>
+                <input type="number" name="valor_unitario" id="valor_unitario" class="form-control"
+                    placeholder="Valor" value="{{producto.Productos.valor_unitario}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="unidad_medida" class="form-label">Unidad de medida</label>
+                <input type="text" name="unidad_medida" id="unidad_medida" class="form-control"
+                    placeholder="Unidad" value="{{producto.Productos.unidad_medida}}" readonly>
+            </div>
+            <div class="mb-3 col">
+                <label for="cantidad_stock" class="form-label">Cantidad en inventario</label>
+                <input type="number" name="cantidad_stock" id="cantidad_stock" class="form-control"
+                    placeholder="Cantidad" value="{{producto.Productos.cantidad_stock}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="categoria" class="form-label">Categoría</label>
+                <input type="text" name="categoria" id="categoria" class="form-control"
+                    placeholder="Unidad" value="{{producto.Categorias.categoria}}" readonly>
+            </div>
+            <input type="hidden" id="id_producto" name="id_producto" value="{{producto.Productos.id}}">
+        </div>
+        <div class="row mt-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>  
+    </form>
+</div>
+{% endblock %}
