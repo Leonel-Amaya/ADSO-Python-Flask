@@ -18,7 +18,7 @@ class Facturas(Base):
 
     def agregar_factura(factura):
         factura = session.add(factura)
-        session.commit()
+        factura = session.commit()
         return factura
     
     def obtener_facturas():

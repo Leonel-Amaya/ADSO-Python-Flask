@@ -48,3 +48,7 @@ class Productos(Base):
     def obtener_producto_solo(id):
         producto = session.query(Productos).get(id)
         return producto
+    
+    def buscar_productos(termino_busqueda):
+        productos = session.query(Productos).filter(Productos.descripcion.ilike(f'%{termino_busqueda}%')).all()
+        return productos

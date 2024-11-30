@@ -9,8 +9,13 @@ class Detalles_Facturas(Base):
     cantidad = Column(Integer, nullable=False)
     precio_total = Column(Integer, nullable=False)
 
-def __init__(self, factura, producto, cantidad, precio_total):
-    self.factura = factura
-    self.producto = producto
-    self.cantidad = cantidad
-    self.precio_total = precio_total
+    def __init__(self, factura, producto, cantidad, precio_total):
+        self.factura = factura
+        self.producto = producto
+        self.cantidad = cantidad
+        self.precio_total = precio_total
+
+    def agregar_detalle_factura(detalle):
+        detalle = session.add(detalle)
+        session.commit()
+        return detalle

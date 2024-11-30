@@ -1,5 +1,5 @@
 from src.app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.categorias import Categorias
@@ -55,4 +55,17 @@ class ProductoController(FlaskController):
             return redirect(url_for('ver_productos'))
         
         return render_template('editar_producto.html', title_page = 'SFI - Productos', producto = producto)
+    
+    @app.route('/buscar_producto', methods = ['GET', 'POST'])
+    def buscar_producto():
+        termino_busqueda = request.args.get('query')
+        productos = Productos.buscar_productos(termino_busqueda)
+
+        for producto in productos:
+            print(producto.descripcion)
+
+        # resultados = [{'id': p.id, 'descripcion': p.descripcion, 'valor_unitario': p.valor_unitario} for p in productos]
+        # return jsonify(resultados)
+    
+        return jsonify(success=True, productos=[{'id': p.id, 'nombre': p.descripcion, 'precio': p.valor_unitario} for p in productos])
 

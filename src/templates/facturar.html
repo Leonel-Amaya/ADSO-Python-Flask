@@ -5,7 +5,7 @@
     <div class="text-center">
         <h1>FACTURACIÓN</h1>
     </div>
-    <form action="crear_factura" method="post">
+    
         <section>
             <div class="row mb-5">
                 <div class="col" style="max-width: 590px;">
@@ -45,13 +45,38 @@
                     <textarea name="" id="" class="form-control"></textarea>
                 </div>
                 <div class="col" style="margin-top: 100px; margin-left: 100px;">
-                    <button class="btn btn-primary">Generar</button>
+                    <button class="btn btn-primary" id="generar-factura" type="submit" formaction="/crear_factura">Generar</button>
                 </div>
             </div>
-
             <input type="hidden" id="id_usuario" name="id_usuario" value="1">
         </section>
-    </form>
+    
+    <div class="row mt-3" style="height: 400px;">
+        <!-- Buscar Producto -->
+        <div class="col">
+            <label for="producto">Producto:</label>
+            <input type="text" id="producto" name="producto">
+            <button id="buscar-producto">Buscar Producto</button>
+            <div id="productos-sugeridos"></div>
+        </div> 
+    </div>
+
+    <!-- Productos Seleccionados -->
+    <h3>Carrito</h3>
+    <table id="carrito">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Filas dinámicas -->
+        </tbody>
+    </table>
+
 </div>
 <script>
     $("#dni_cliente").change(function() {
@@ -68,6 +93,66 @@
                 $('#telefono').val(result.telefono);
                 $('#email').val(result.email);
                 $('#id_cliente').val(result.id);
+            }
+        });
+    });
+
+    $('#buscar-producto').click(function() {
+        const query = $('#producto').val();
+        $.ajax({
+            url: '/buscar_producto',
+            method: 'GET',
+            data: { query: query },
+            success: function(data) {
+                let sugerencias = '';
+                data.productos.forEach(producto => {
+                    sugerencias += `<p data-id="${producto.id}" data-nombre="${producto.nombre}" data-precio="${producto.precio}">${producto.nombre} - $${producto.precio}</p>`;
+                });
+                $('#productos-sugeridos').html(sugerencias);
+            }
+        });
+    });
+
+    // Agregar Producto al Carrito
+    $('#productos-sugeridos').on('click', 'p', function() {
+        const id = $(this).data('id');
+        const nombre = $(this).data('nombre');
+        const precio = $(this).data('precio');
+        const cantidad = 1; // Por defecto
+
+        const fila = `<tr data-id="${id}">
+            <td>${nombre}</td>
+            <td class"precio">${precio}</td>
+            <td><input type="number" value="${cantidad}" class="cantidad"></td>
+            <td>${precio * cantidad}</td>
+        </tr> `;
+        $('#carrito tbody').append(fila);
+    });
+
+    $('#generar-factura').click(function() {
+        const carrito = [];
+        $('#carrito tbody tr').each(function() {
+            const id = $(this).data('id');
+            const cantidad = $(this).find('.cantidad').val();
+            // const precio = $(this).find('.precio')
+            carrito.push({ producto_id: id, cantidad: cantidad });
+        });
+
+        $.ajax({
+            url: '/crear_factura',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: JSON.stringify({
+                id_cliente: $('#id_cliente').val(),
+                carrito: carrito
+            }),
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = response.redirect_url; // Redirige a la URL especificada
+                } else {
+                    alert(response.message || 'Error al generar factura');
+                }
             }
         });
     });
