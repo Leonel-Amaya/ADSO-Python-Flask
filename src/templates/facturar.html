@@ -113,12 +113,11 @@
         });
     });
 
-    // Agregar Producto al Carrito
     $('#productos-sugeridos').on('click', 'p', function() {
         const id = $(this).data('id');
         const nombre = $(this).data('nombre');
         const precio = $(this).data('precio');
-        const cantidad = 1; // Por defecto
+        const cantidad = 1;
 
         const fila = `<tr data-id="${id}">
             <td>${nombre}</td>
@@ -134,7 +133,6 @@
         $('#carrito tbody tr').each(function() {
             const id = $(this).data('id');
             const cantidad = $(this).find('.cantidad').val();
-            // const precio = $(this).find('.precio')
             carrito.push({ producto_id: id, cantidad: cantidad });
         });
 
@@ -149,7 +147,7 @@
             }),
             success: function(response) {
                 if (response.success) {
-                    window.location.href = response.redirect_url; // Redirige a la URL especificada
+                    window.location.href = response.redirect_url;
                 } else {
                     alert(response.message || 'Error al generar factura');
                 }

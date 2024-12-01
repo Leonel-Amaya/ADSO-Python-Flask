@@ -60,12 +60,6 @@ class ProductoController(FlaskController):
     def buscar_producto():
         termino_busqueda = request.args.get('query')
         productos = Productos.buscar_productos(termino_busqueda)
-
-        for producto in productos:
-            print(producto.descripcion)
-
-        # resultados = [{'id': p.id, 'descripcion': p.descripcion, 'valor_unitario': p.valor_unitario} for p in productos]
-        # return jsonify(resultados)
     
         return jsonify(success=True, productos=[{'id': p.id, 'nombre': p.descripcion, 'precio': p.valor_unitario} for p in productos])
 
