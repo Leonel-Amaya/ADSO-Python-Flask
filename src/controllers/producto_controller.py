@@ -3,8 +3,14 @@ from flask import render_template, request, redirect, url_for, jsonify
 from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.categorias import Categorias
+from flask_restful import Api
+from src.api.productos_api import ProductosApi
 
 class ProductoController(FlaskController):
+
+    api = Api(app)
+    api.add_resource(ProductosApi, '/api/productos')
+
     @app.route('/crear_producto', methods=['POST','GET'])
     def crear_producto():
 
