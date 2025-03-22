@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, update
 from src.models import session, Base
 from sqlalchemy_serializer import SerializerMixin
 
@@ -29,3 +29,16 @@ class Clientes(Base, SerializerMixin):
     def obtener_cliente_por_dni(dni):
         cliente = session.query(Clientes).filter(Clientes.dni == dni).first()
         return cliente.to_dict()
+    
+    def eliminar_cliente(id):
+        cliente = session.query(Clientes).get(id)
+        session.delete(cliente)
+        session.commit()
+        return cliente
+    
+    def editar_cliente(cliente):
+        cliente_id = cliente.id
+        session.execute(update(Clientes).where(Clientes.id == cliente_id).values(direccion = cliente.direccion,
+                email = cliente.email, 
+                telefono = cliente.telefono))
+        session.commit()

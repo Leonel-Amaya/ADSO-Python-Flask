@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, update
 from src.models import session, Base
 from datetime import datetime
 
@@ -18,5 +18,22 @@ class Proveedores(Base):
 
     def agregar_proveedor(proveedor):
         proveedor = session.add(proveedor)
+        session.commit()
+        return proveedor
+    
+    def obtener_proveedores():
+        proveedores = session.query(Proveedores).all()
+        return proveedores
+    
+    def eliminar_proveedor(id):
+        proveedor = session.query(Proveedores).get(id)
+        session.delete(proveedor)
+        session.commit()
+        return proveedor
+    
+    def editar_proveedor(proveedor):
+        proveedor_id = proveedor.id
+        session.execute(update(Proveedores).where(Proveedores.id == proveedor_id).values(nombre = proveedor.nombre,
+                direccion = proveedor.direccion))
         session.commit()
         return proveedor
