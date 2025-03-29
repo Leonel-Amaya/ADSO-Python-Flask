@@ -19,3 +19,9 @@ class ProveedorController(FlaskController):
             return redirect(url_for('index'))
         
         return render_template('proveedor.html', title_page = 'SFI - Proveedor')
+    
+    @app.route('/ver_proveedores')
+    def ver_proveedores():
+        proveedores = Proveedores.obtener_proveedores()
+
+        return render_template('tabla_proveedores.html', title_page = 'Ver proveedores', proveedores = proveedores)

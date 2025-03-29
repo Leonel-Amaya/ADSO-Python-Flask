@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block contenido %}
+<div class="main p-3">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">NIT</th>
+          <th scope="col">Fecha de Vinculación</th>
+          <th scope="col">Dirección</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for proveedor in proveedores %}
+          <tr>
+              <th scope="row">{{proveedor.id}}</th>
+              <td>{{proveedor.nombre}}</td>
+              <td>{{proveedor.nit}}</td>
+              <td>{{proveedor.fecha_vinculacion}}</td>
+              <td>{{proveedor.direccion}}</td>
+              <td>
+                <a class="btn btn-danger" href="">Eliminar</a>
+                <a class="btn btn-success" href="">Editar</a>
+              </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
