@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, update
 from src.models import session, Base
 from src.models.categorias import Categorias
 
@@ -27,3 +27,28 @@ class Productos(Base):
         producto = session.add(producto)
         session.commit()
         return producto
+    
+    def eliminar_producto(id):
+        producto = session.query(Productos).get(id)
+        session.delete(producto)
+        session.commit()
+        return producto
+    
+    def editar_producto(producto):
+        producto_id = producto.id
+        session.execute(update(Productos).where(Productos.id == producto_id).values(descripcion=producto.descripcion,
+                valor_unitario=producto.valor_unitario,
+                cantidad_stock=producto.cantidad_stock))
+        session.commit()
+    
+    def obtener_un_producto(id):
+        producto = session.query(Productos, Categorias).join(Categorias).filter(Productos.id == id).first()
+        return producto
+    
+    def obtener_producto_solo(id):
+        producto = session.query(Productos).get(id)
+        return producto
+    
+    def buscar_productos(termino_busqueda):
+        productos = session.query(Productos).filter(Productos.descripcion.ilike(f'%{termino_busqueda}%')).all()
+        return productos

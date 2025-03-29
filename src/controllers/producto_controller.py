@@ -1,10 +1,16 @@
 from src.app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.categorias import Categorias
+from flask_restful import Api
+from src.api.productos_api import ProductosApi
 
 class ProductoController(FlaskController):
+
+    api = Api(app)
+    api.add_resource(ProductosApi, '/api/productos')
+
     @app.route('/crear_producto', methods=['POST','GET'])
     def crear_producto():
 
@@ -29,3 +35,37 @@ class ProductoController(FlaskController):
     def ver_productos():
         productos = Productos.obtener_productos()
         return render_template('tabla_productos.html', title_page = 'SFI - Productos', productos = productos)
+    
+    @app.route('/eliminar_producto/<id>')
+    def eliminar_producto(id):
+        Productos.eliminar_producto(id)
+        productos = Productos.obtener_productos()
+        return render_template('tabla_productos.html', title_page = 'SFI - Productos', productos = productos)
+    
+    
+    @app.route('/editar_producto/<id>', methods=['POST', 'GET'])
+    def editar_producto(id):
+        
+        producto = Productos.obtener_un_producto(id)
+
+        if request.method == 'POST':
+
+            producto_solo = Productos.obtener_producto_solo(id)
+
+            producto_solo.descripcion = request.form.get('descripcion')
+            producto_solo.valor_unitario = request.form.get('valor_unitario')
+            producto_solo.cantidad_stock = request.form.get('cantidad_stock')
+            
+            Productos.editar_producto(producto_solo)
+
+            return redirect(url_for('ver_productos'))
+        
+        return render_template('editar_producto.html', title_page = 'SFI - Productos', producto = producto)
+    
+    @app.route('/buscar_producto', methods = ['GET', 'POST'])
+    def buscar_producto():
+        termino_busqueda = request.args.get('query')
+        productos = Productos.buscar_productos(termino_busqueda)
+    
+        return jsonify(success=True, productos=[{'id': p.id, 'nombre': p.descripcion, 'precio': p.valor_unitario} for p in productos])
+
