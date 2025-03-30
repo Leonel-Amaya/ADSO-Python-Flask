@@ -19,3 +19,27 @@ class ProveedorController(FlaskController):
             return redirect(url_for('index'))
         
         return render_template('proveedor.html', title_page = 'SFI - Proveedor')
+    
+    @app.route('/ver_proveedores')
+    def ver_proveedores():
+        proveedores = Proveedores.obtener_proveedores()
+
+        return render_template('tabla_proveedores.html', title_page = 'Ver proveedores', proveedores = proveedores)
+    
+    @app.route('/eliminar_proveedor/<id>')
+    def eliminar_proveedor(id):
+        Proveedores.eliminar_proveedor(id)
+        return redirect(url_for('ver_proveedores'))
+    
+    @app.route('/editar_proveedor/<id>', methods = ['GET', 'POST'])
+    def editar_proveedor(id):
+        proveedor = Proveedores.obtener_un_proveedor(id)
+
+        if request.method == 'POST':
+            proveedor.nombre = request.form.get('nombre')
+            proveedor.direccion = request.form.get('direccion')
+
+            Proveedores.editar_proveedor(proveedor)
+            return redirect(url_for('ver_proveedores'))
+        
+        return render_template('editar_proveedor.html', title_page = 'SFI - Proveedor', proveedor = proveedor)
