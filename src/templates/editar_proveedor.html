@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block contenido %}
+<div class="main p-3">
+    <div class="text-center">
+        <h1>REGISTRO NUEVO PROVEEDOR</h1>
+    </div>
+    <form action="/editar_proveedor/{{ proveedor.id }}" method="post">
+        <section class="m-5">
+            <div class="mb-4">
+                <label for="nombre" class="form-label">Nombre Empresa Proveedora</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" value="{{ proveedor.nombre }}">
+            </div>
+            <div class="mb-4">
+                <label for="nit" class="form-label">NIT de la empresa</label>
+                <input type="number" id="nit" name="nit" class="form-control" value="{{ proveedor.nit }}" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" id="direccion" name="direccion" class="form-control" value="{{ proveedor.direccion }}">
+            </div>
+            <div class="row mt-10">
+                <input type="hidden" id="id_producto" name="id_producto" value="{{ proveedor.id }}">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>  
+        </section>
+    </form>
+</div>
+{% endblock %}

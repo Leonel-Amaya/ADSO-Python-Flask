@@ -37,3 +37,7 @@ class Proveedores(Base):
                 direccion = proveedor.direccion))
         session.commit()
         return proveedor
+    
+    def obtener_un_proveedor(id):
+        proveedor = session.query(Proveedores).get(id)
+        return proveedor
