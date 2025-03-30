@@ -28,10 +28,8 @@ class ProveedorController(FlaskController):
     
     @app.route('/eliminar_proveedor/<id>')
     def eliminar_proveedor(id):
-        print(id)
         Proveedores.eliminar_proveedor(id)
-        proveedores = Proveedores.obtener_proveedores()
-        return render_template('tabla_proveedores.html', title_page = 'Ver proveedores', proveedores = proveedores)
+        return redirect(url_for('ver_proveedores'))
     
     @app.route('/editar_proveedor/<id>', methods = ['GET', 'POST'])
     def editar_proveedor(id):
